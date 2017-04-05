@@ -13,13 +13,13 @@
         "efml-class-mustache": {
             "patterns": [
                 {
-                    "match": "\\.\\{\\{([^#]+?)(\\=([^#]+?))?\\}\\}((?=#)|$)", 
+                    "match": "\\.\\{\\{(([^#]+?)(\\=([^#]+?))?)?\\}\\}((?=#)|$)", 
                     "captures": {
-                        "3": {
-                            "name": "string.mustache.efml"
-                        }, 
-                        "1": {
+                        "2": {
                             "name": "variable.other.object.efml"
+                        }, 
+                        "4": {
+                            "name": "string.mustache.efml"
                         }
                     }, 
                     "name": "meta.selector.css entity.other.attribute-name.class.mustache.efml"
@@ -153,12 +153,12 @@
         "efml-full-mustache": {
             "patterns": [
                 {
-                    "match": "(?<=(\\=|:)) *+\\{\\{(.+?)(\\=(.+?))?\\}\\} *+$", 
+                    "match": "(?<=(\\=|:)) *+\\{\\{((.+?)(\\=(.+?))?)?\\}\\} *+$", 
                     "captures": {
-                        "2": {
+                        "3": {
                             "name": "variable.other.object.efml"
                         }, 
-                        "4": {
+                        "5": {
                             "name": "string.mustache.efml"
                         }
                     }, 
@@ -169,7 +169,7 @@
     }, 
     "patterns": [
         {
-            "begin": "^\\t*?(?=\\>)", 
+            "begin": "^\\s*?(?=\\>)", 
             "patterns": [
                 {
                     "include": "#efml-tag"
@@ -188,7 +188,7 @@
             "name": "meta.selector.efml"
         }, 
         {
-            "begin": "^\\t*?(?=#)", 
+            "begin": "^\\s*?(?=#)", 
             "patterns": [
                 {
                     "include": "#efml-attr"
@@ -204,7 +204,7 @@
             "name": "meta.line.attr.efml"
         }, 
         {
-            "begin": "^\\t*?(?=%)", 
+            "begin": "^\\s*?(?=%)", 
             "patterns": [
                 {
                     "include": "#efml-prop"
@@ -220,7 +220,7 @@
             "name": "meta.line.prop.efml"
         }, 
         {
-            "begin": "^\\t*?(?=@)", 
+            "begin": "^\\s*?(?=@)", 
             "patterns": [
                 {
                     "include": "#efml-event"
@@ -239,11 +239,11 @@
             "name": "meta.line.event.efml"
         }, 
         {
-            "match": "^\\t*?[+-].*?$", 
+            "match": "^\\s*?[+-].*?$", 
             "name": "storage.type.eft"
         }, 
         {
-            "begin": "^\\t*+\\.", 
+            "begin": "^\\s*?\\.", 
             "patterns": [
                 {
                     "include": "#efml-escape"
@@ -256,7 +256,7 @@
             "name": "text.efml"
         }, 
         {
-            "begin": "^\\t*+[^>.#%@+-]", 
+            "begin": "^\\s*?[^>.#%@+-]", 
             "end": "$", 
             "name": "comment.line.efml"
         }
