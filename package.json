@@ -1,0 +1,13 @@
+{
+  "name": "efml",
+  "version": "1.0.3",
+  "description": "EFML highlighting for Atom",
+  "keywords": [
+  ],
+  "repository": "https://github.com/ClassicOldSong/AtomEFMLHighlighter",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "dependencies": {}
+}
