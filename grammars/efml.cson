@@ -1,231 +1,144 @@
-{
-    "repository": {
-        "efml-event-method": {
-            "patterns": [
-                {
-                    "end": "((?=:)|$)", 
-                    "begin": "(?<=\\=)", 
-                    "name": "entity.name.function.efml"
-                }
-            ]
-        }, 
-        "mustache-escape": {
-            "patterns": [
-                {
-                    "match": "\\&(u(?!}})..(?!}}).(?!}}).|x(?!}}).(?!}}).|(?!}}).)", 
-                    "name": "constant.character.escape.efml"
-                }
-            ]
-        }, 
-        "efml-prop": {
-            "patterns": [
-                {
-                    "end": "((?=\\=)|$)", 
-                    "begin": "\\%", 
-                    "name": "keyword.control.efml"
-                }
-            ]
-        }, 
-        "efml-string": {
-            "patterns": [
-                {
-                    "end": "$", 
-                    "begin": "(?<=(\\=|:))", 
-                    "name": "string.efml", 
-                    "patterns": [
-                        {
-                            "include": "#efml-mustache"
-                        }
-                    ]
-                }
-            ]
-        }, 
-        "efml-escape": {
-            "patterns": [
-                {
-                    "match": "\\&(u.{0,4}|x.{0,2}|.?)", 
-                    "name": "constant.character.escape.efml"
-                }
-            ]
-        }, 
-        "efml-tag-class": {
-            "patterns": [
-                {
-                    "end": "(?=((#([^\\}]|\\}[^\\}])*)|$))", 
-                    "begin": "\\.", 
-                    "name": "meta.selector.css entity.other.attribute-name.class.efml", 
-                    "patterns": [
-                        {
-                            "include": "#efml-mustache"
-                        }
-                    ]
-                }
-            ]
-        }, 
-        "efml-tag-ref": {
-            "patterns": [
-                {
-                    "end": "$", 
-                    "begin": "\\#([^\\}]|\\}[^\\}])*", 
-                    "name": "entity.other.attribute-name.id.html"
-                }
-            ]
-        }, 
-        "efml-tag": {
-            "patterns": [
-                {
-                    "end": "(?=(\\.|\\#))|$", 
-                    "begin": "\\>", 
-                    "name": "entity.name.tag.block.any.efml"
-                }
-            ]
-        }, 
-        "efml-mustache": {
-            "patterns": [
-                {
-                    "end": "\\}\\}|$", 
-                    "begin": "\\{\\{", 
-                    "name": "expression.embbeded.efml", 
-                    "patterns": [
-                        {
-                            "include": "#mustache-path"
-                        }, 
-                        {
-                            "include": "#mustache-string"
-                        }
-                    ]
-                }
-            ]
-        }, 
-        "efml-attr": {
-            "patterns": [
-                {
-                    "end": "(?=\\=)|$", 
-                    "begin": "\\#", 
-                    "name": "entity.other.attribute-name.html"
-                }
-            ]
-        }, 
-        "mustache-path": {
-            "patterns": [
-                {
-                    "end": "(?=(\\=|\\}\\}|$))", 
-                    "begin": "(?<=\\{\\{)", 
-                    "name": "variable.other.object.efml"
-                }
-            ]
-        }, 
-        "mustache-string": {
-            "patterns": [
-                {
-                    "end": "(?=\\}\\})", 
-                    "begin": "(?<=\\=)", 
-                    "name": "string.mustache.efml", 
-                    "patterns": [
-                        {
-                            "include": "#mustache-escape"
-                        }
-                    ]
-                }
-            ]
-        }, 
-        "efml-event": {
-            "patterns": [
-                {
-                    "end": "((?=\\=)|$)", 
-                    "begin": "\\@", 
-                    "name": "variable.function.efml"
-                }
-            ]
-        }
-    }, 
-    "patterns": [
-        {
-            "end": "$", 
-            "begin": "^\\s*?(?=\\>)", 
-            "name": "meta.selector.efml", 
-            "patterns": [
-                {
-                    "include": "#efml-tag"
-                }, 
-                {
-                    "include": "#efml-tag-class"
-                }, 
-                {
-                    "include": "#efml-tag-ref"
-                }
-            ]
-        }, 
-        {
-            "end": "$", 
-            "begin": "^\\s*?(?=#)", 
-            "name": "meta.line.attr.efml", 
-            "patterns": [
-                {
-                    "include": "#efml-attr"
-                }, 
-                {
-                    "include": "#efml-string"
-                }
-            ]
-        }, 
-        {
-            "end": "$", 
-            "begin": "^\\s*?(?=%)", 
-            "name": "meta.line.prop.efml", 
-            "patterns": [
-                {
-                    "include": "#efml-prop"
-                }, 
-                {
-                    "include": "#efml-string"
-                }
-            ]
-        }, 
-        {
-            "end": "$", 
-            "begin": "^\\s*?(?=@)", 
-            "name": "meta.line.event.efml", 
-            "patterns": [
-                {
-                    "include": "#efml-event"
-                }, 
-                {
-                    "include": "#efml-event-method"
-                }, 
-                {
-                    "include": "#efml-string"
-                }
-            ]
-        }, 
-        {
-            "match": "^\\s*?[+-].*?$", 
-            "name": "storage.type.eft"
-        }, 
-        {
-            "end": "$", 
-            "begin": "^\\s*?\\.", 
-            "name": "text.efml", 
-            "patterns": [
-                {
-                    "include": "#efml-escape"
-                }, 
-                {
-                    "include": "#efml-mustache"
-                }
-            ]
-        }, 
-        {
-            "end": "$", 
-            "begin": "^\\s*?[^>.#%@+-]", 
-            "name": "comment.line.efml"
-        }
-    ], 
-    "scopeName": "text.efml", 
-    "name": "EFML", 
-    "fileTypes": [
-        "ef", 
-        "eft"
-    ], 
-    "uuid": "ee7d9ea0-f056-4365-bc31-0512369e8c17"
-}
+# [PackageDev] target_format: plist, ext: tmLanguage
+---
+name: EFML
+scopeName: text.efml
+fileTypes: [ef, eft]
+uuid: ee7d9ea0-f056-4365-bc31-0512369e8c17
+
+patterns:
+# efml_line_tag
+- name: meta.selector.efml
+  begin: ^\s*?(?=\>)
+  end: $
+  patterns:
+  - include: '#efml-tag'
+  - include: '#efml-tag-class'
+  - include: '#efml-tag-ref'
+
+# efml_line_attr
+- name: meta.line.attr.efml
+  begin: ^\s*?(?=#)
+  end: $
+  patterns:
+  - include: '#efml-attr'
+  - include: '#efml-string'
+
+# efml_line_prop
+- name: meta.line.prop.efml
+  begin: ^\s*?(?=%)
+  end: $
+  patterns:
+  - include: '#efml-prop'
+  - include: '#efml-string'
+
+# efml_line_event
+- name: meta.line.event.efml
+  begin: ^\s*?(?=@)
+  end: $
+  patterns:
+  - include: '#efml-event'
+  - include: '#efml-event-method'
+  - include: '#efml-string'
+
+# efml_node
+- name: storage.type.eft
+  match: ^\s*?[+-].*?$
+
+# efml_text
+- name: text.efml
+  begin: ^\s*?\.
+  end: $
+  patterns:
+  - include: '#efml-escape'
+  - include: '#efml-mustache'
+
+# efml_comment
+- name: comment.line.efml
+  begin: ^\s*?[^>.#%@+-]
+  end: $
+
+repository:
+  efml-tag:
+    patterns:
+    - name: entity.name.tag.block.any.efml
+      begin: \>
+      end: (?=(\.|\#))|$
+
+  efml-tag-class:
+    patterns:
+    - name: meta.selector.css entity.other.attribute-name.class.efml
+      begin: \.
+      end: (?=((#([^\}]|\}[^\}])*$)|$))
+      patterns:
+      - include: '#efml-mustache'
+
+  efml-tag-ref:
+    patterns:
+    - name: entity.other.attribute-name.id.html
+      begin: \#([^\}]|\}[^\}])*$
+      end: $
+
+  efml-attr:
+    patterns:
+    - name: entity.other.attribute-name.html
+      begin: \#
+      end: (?=\=)|$
+
+  efml-prop:
+    patterns:
+    - name: keyword.control.efml
+      begin: \%
+      end: ((?=\=)|$)
+
+  efml-event:
+    patterns:
+    - name: variable.function.efml
+      begin: \@
+      end: ((?=\=)|$)
+
+  efml-event-method:
+    patterns:
+    - name: entity.name.function.efml
+      begin: (?<=\=)
+      end: ((?=:)|$)
+
+  efml-string:
+    patterns:
+    - name: string.efml
+      begin: (?<=(\=|:))
+      end: $
+      patterns:
+      - include: '#efml-mustache'
+
+  efml-escape:
+    patterns:
+    - name: constant.character.escape.efml
+      match: \&(u.{0,4}|x.{0,2}|.?)
+
+  efml-mustache:
+    patterns:
+    - name: expression.embbeded.efml
+      begin: \{\{
+      end: \}\}|$
+      patterns:
+      - include: '#mustache-path'
+      - include: '#mustache-string'
+
+  mustache-path:
+    patterns:
+    - name: variable.other.object.efml
+      begin: (?<=\{\{)
+      end: (?=(\=|\}\}|$))
+
+  mustache-string:
+    patterns:
+    - name: string.mustache.efml
+      begin: (?<=\=)
+      end: (?=\}\})
+      patterns:
+      - include: '#mustache-escape'
+
+  mustache-escape:
+    patterns:
+    - name: constant.character.escape.efml
+      match: \&(u(?!}})..(?!}}).(?!}}).|x(?!}}).(?!}}).|(?!}}).)
