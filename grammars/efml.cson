@@ -1,117 +1,11 @@
 {
-    "scopeName": "text.efml", 
     "repository": {
-        "efml-tag-name": {
-            "patterns": [
-                {
-                    "begin": "\\#", 
-                    "end": "$", 
-                    "name": "entity.other.attribute-name.id.html"
-                }
-            ]
-        }, 
-        "efml-class-mustache": {
-            "patterns": [
-                {
-                    "match": "\\.\\{\\{(([^#]+?)(\\=([^#]+?))?)?\\}\\}((?=#)|$)", 
-                    "captures": {
-                        "2": {
-                            "name": "variable.other.object.efml"
-                        }, 
-                        "4": {
-                            "name": "string.mustache.efml"
-                        }
-                    }, 
-                    "name": "meta.selector.css entity.other.attribute-name.class.mustache.efml"
-                }
-            ]
-        }, 
-        "efml-escape": {
-            "patterns": [
-                {
-                    "match": "\\&(u.{0,4}|x.{0,2}|.?)", 
-                    "name": "constant.character.escape.efml"
-                }
-            ]
-        }, 
-        "efml-mustache": {
-            "patterns": [
-                {
-                    "begin": "\\{\\{", 
-                    "patterns": [
-                        {
-                            "include": "#mustache-path"
-                        }, 
-                        {
-                            "include": "#mustache-string"
-                        }
-                    ], 
-                    "end": "\\}\\}", 
-                    "name": "expression.embbeded.efml"
-                }
-            ]
-        }, 
-        "mustache-string": {
-            "patterns": [
-                {
-                    "begin": "(?<=\\=)", 
-                    "patterns": [
-                        {
-                            "include": "#mustache-escape"
-                        }
-                    ], 
-                    "end": "(?=\\}\\})", 
-                    "name": "string.mustache.efml"
-                }
-            ]
-        }, 
-        "efml-pure-string": {
-            "patterns": [
-                {
-                    "begin": "(?<=(\\=|:))", 
-                    "patterns": [
-                        {
-                            "include": "#efml-escape"
-                        }
-                    ], 
-                    "end": "$", 
-                    "name": "string.efml"
-                }
-            ]
-        }, 
-        "efml-attr": {
-            "patterns": [
-                {
-                    "begin": "\\#", 
-                    "end": "(?=\\=)|$", 
-                    "name": "entity.other.attribute-name.html"
-                }
-            ]
-        }, 
         "efml-event-method": {
             "patterns": [
                 {
-                    "begin": "(?<=\\=)", 
                     "end": "((?=:)|$)", 
+                    "begin": "(?<=\\=)", 
                     "name": "entity.name.function.efml"
-                }
-            ]
-        }, 
-        "efml-prop": {
-            "patterns": [
-                {
-                    "begin": "\\%", 
-                    "end": "((?=\\=)|$)", 
-                    "name": "keyword.control.efml"
-                }
-            ]
-        }, 
-        "efml-tag": {
-            "patterns": [
-                {
-                    "begin": "\\>", 
-                    "end": "(?=(\\.|\\#))|$", 
-                    "name": "entity.name.tag.block.any.efml"
                 }
             ]
         }, 
@@ -123,104 +17,175 @@
                 }
             ]
         }, 
-        "mustache-path": {
+        "efml-prop": {
             "patterns": [
                 {
-                    "begin": "(?<=\\{\\{)", 
-                    "end": "(?=(\\=|\\}\\}|$))", 
-                    "name": "variable.other.object.efml"
+                    "end": "((?=\\=)|$)", 
+                    "begin": "\\%", 
+                    "name": "keyword.control.efml"
                 }
             ]
         }, 
-        "efml-event": {
+        "efml-string": {
             "patterns": [
                 {
-                    "begin": "\\@", 
-                    "end": "((?=\\=)|$)", 
-                    "name": "variable.function.efml"
+                    "end": "$", 
+                    "begin": "(?<=(\\=|:))", 
+                    "name": "string.efml", 
+                    "patterns": [
+                        {
+                            "include": "#efml-mustache"
+                        }
+                    ]
+                }
+            ]
+        }, 
+        "efml-escape": {
+            "patterns": [
+                {
+                    "match": "\\&(u.{0,4}|x.{0,2}|.?)", 
+                    "name": "constant.character.escape.efml"
                 }
             ]
         }, 
         "efml-tag-class": {
             "patterns": [
                 {
+                    "end": "(?=((#([^\\}]|\\}[^\\}])*)|$))", 
                     "begin": "\\.", 
-                    "end": "(?=(\\#|$))", 
-                    "name": "meta.selector.css entity.other.attribute-name.class.efml"
+                    "name": "meta.selector.css entity.other.attribute-name.class.efml", 
+                    "patterns": [
+                        {
+                            "include": "#efml-mustache"
+                        }
+                    ]
                 }
             ]
         }, 
-        "efml-full-mustache": {
+        "efml-tag-ref": {
             "patterns": [
                 {
-                    "match": "(?<=(\\=|:)) *+\\{\\{((.+?)(\\=(.+?))?)?\\}\\} *+$", 
-                    "captures": {
-                        "3": {
-                            "name": "variable.other.object.efml"
+                    "end": "$", 
+                    "begin": "\\#([^\\}]|\\}[^\\}])*", 
+                    "name": "entity.other.attribute-name.id.html"
+                }
+            ]
+        }, 
+        "efml-tag": {
+            "patterns": [
+                {
+                    "end": "(?=(\\.|\\#))|$", 
+                    "begin": "\\>", 
+                    "name": "entity.name.tag.block.any.efml"
+                }
+            ]
+        }, 
+        "efml-mustache": {
+            "patterns": [
+                {
+                    "end": "\\}\\}|$", 
+                    "begin": "\\{\\{", 
+                    "name": "expression.embbeded.efml", 
+                    "patterns": [
+                        {
+                            "include": "#mustache-path"
                         }, 
-                        "5": {
-                            "name": "string.mustache.efml"
+                        {
+                            "include": "#mustache-string"
                         }
-                    }, 
-                    "name": "expression.embbeded.efml"
+                    ]
+                }
+            ]
+        }, 
+        "efml-attr": {
+            "patterns": [
+                {
+                    "end": "(?=\\=)|$", 
+                    "begin": "\\#", 
+                    "name": "entity.other.attribute-name.html"
+                }
+            ]
+        }, 
+        "mustache-path": {
+            "patterns": [
+                {
+                    "end": "(?=(\\=|\\}\\}|$))", 
+                    "begin": "(?<=\\{\\{)", 
+                    "name": "variable.other.object.efml"
+                }
+            ]
+        }, 
+        "mustache-string": {
+            "patterns": [
+                {
+                    "end": "(?=\\}\\})", 
+                    "begin": "(?<=\\=)", 
+                    "name": "string.mustache.efml", 
+                    "patterns": [
+                        {
+                            "include": "#mustache-escape"
+                        }
+                    ]
+                }
+            ]
+        }, 
+        "efml-event": {
+            "patterns": [
+                {
+                    "end": "((?=\\=)|$)", 
+                    "begin": "\\@", 
+                    "name": "variable.function.efml"
                 }
             ]
         }
     }, 
     "patterns": [
         {
+            "end": "$", 
             "begin": "^\\s*?(?=\\>)", 
+            "name": "meta.selector.efml", 
             "patterns": [
                 {
                     "include": "#efml-tag"
                 }, 
                 {
-                    "include": "#efml-tag-name"
-                }, 
-                {
-                    "include": "#efml-class-mustache"
-                }, 
-                {
                     "include": "#efml-tag-class"
+                }, 
+                {
+                    "include": "#efml-tag-ref"
                 }
-            ], 
-            "end": "$", 
-            "name": "meta.selector.efml"
+            ]
         }, 
         {
+            "end": "$", 
             "begin": "^\\s*?(?=#)", 
+            "name": "meta.line.attr.efml", 
             "patterns": [
                 {
                     "include": "#efml-attr"
                 }, 
                 {
-                    "include": "#efml-full-mustache"
-                }, 
-                {
-                    "include": "#efml-pure-string"
+                    "include": "#efml-string"
                 }
-            ], 
-            "end": "$", 
-            "name": "meta.line.attr.efml"
+            ]
         }, 
         {
+            "end": "$", 
             "begin": "^\\s*?(?=%)", 
+            "name": "meta.line.prop.efml", 
             "patterns": [
                 {
                     "include": "#efml-prop"
                 }, 
                 {
-                    "include": "#efml-full-mustache"
-                }, 
-                {
-                    "include": "#efml-pure-string"
+                    "include": "#efml-string"
                 }
-            ], 
-            "end": "$", 
-            "name": "meta.line.prop.efml"
+            ]
         }, 
         {
+            "end": "$", 
             "begin": "^\\s*?(?=@)", 
+            "name": "meta.line.event.efml", 
             "patterns": [
                 {
                     "include": "#efml-event"
@@ -229,21 +194,18 @@
                     "include": "#efml-event-method"
                 }, 
                 {
-                    "include": "#efml-full-mustache"
-                }, 
-                {
-                    "include": "#efml-pure-string"
+                    "include": "#efml-string"
                 }
-            ], 
-            "end": "$", 
-            "name": "meta.line.event.efml"
+            ]
         }, 
         {
             "match": "^\\s*?[+-].*?$", 
             "name": "storage.type.eft"
         }, 
         {
+            "end": "$", 
             "begin": "^\\s*?\\.", 
+            "name": "text.efml", 
             "patterns": [
                 {
                     "include": "#efml-escape"
@@ -251,16 +213,15 @@
                 {
                     "include": "#efml-mustache"
                 }
-            ], 
-            "end": "$", 
-            "name": "text.efml"
+            ]
         }, 
         {
-            "begin": "^\\s*?[^>.#%@+-]", 
             "end": "$", 
+            "begin": "^\\s*?[^>.#%@+-]", 
             "name": "comment.line.efml"
         }
     ], 
+    "scopeName": "text.efml", 
     "name": "EFML", 
     "fileTypes": [
         "ef", 
