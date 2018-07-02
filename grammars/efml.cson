@@ -204,7 +204,7 @@
         }, 
         {
             "end": "$", 
-            "begin": "^\\s*?\\.", 
+            "begin": "^\\s*?(\\.|\\|)", 
             "name": "text.efml", 
             "patterns": [
                 {
@@ -217,7 +217,7 @@
         }, 
         {
             "end": "$", 
-            "begin": "^\\s*?[^>.#%@+-]", 
+            "begin": "^\\s*?[^>.|#%@+-]", 
             "name": "comment.line.efml"
         }
     ], 
