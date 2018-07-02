@@ -225,7 +225,9 @@
     "name": "EFML", 
     "fileTypes": [
         "ef", 
-        "eft"
+        "eft", 
+        "efm", 
+        "efml"
     ], 
     "uuid": "ee7d9ea0-f056-4365-bc31-0512369e8c17"
 }
